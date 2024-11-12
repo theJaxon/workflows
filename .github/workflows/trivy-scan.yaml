@@ -1,6 +1,10 @@
 on:
   workflow_call:
     inputs:
+      registry_name:
+        required: true
+        default: "ghcr.io"
+        type: string
       image_name:
         required: true
         type: string
@@ -15,7 +19,7 @@ jobs:
       - name: Scan container image with Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: '${{ env.REGISTRY }}/thejaxon/${{ inputs.image_name }}:${{ inputs.image_tag }}'
+          image-ref: '${{ inputs.registry_name }}/thejaxon/${{ inputs.image_name }}:${{ inputs.image_tag }}'
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
