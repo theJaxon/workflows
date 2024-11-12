@@ -2,7 +2,7 @@ on:
   workflow_call:
     inputs:
       registry_name:
-        required: true
+        required: false
         default: "ghcr.io"
         type: string
       image_name:
