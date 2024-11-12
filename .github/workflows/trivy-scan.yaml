@@ -9,6 +9,7 @@ on:
         default: "latest"
 jobs:
   trivy-scan-image:
+    runs-on: ubuntu-24.04
     steps:
       - name: Scan container image with Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
