@@ -7,6 +7,7 @@ on:
       image_tag:
         required: false
         default: "latest"
+        type: string
 jobs:
   trivy-scan-image:
     runs-on: ubuntu-24.04
