@@ -1,0 +1,22 @@
+on:
+  workflow_call:
+    inputs:
+      image_name:
+        required: true
+        type: string
+      image_tag:
+        required: false
+        default: "latest"
+jobs:
+  trivy-scan-image:
+    steps:
+      - name: Scan container image with Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: '${{ env.REGISTRY }}/thejaxon/${{ inputs.image_name }}:${{ inputs.image_tag }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+          cache: 'true'
