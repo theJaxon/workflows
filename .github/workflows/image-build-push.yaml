@@ -33,7 +33,7 @@ jobs:
         with:
           registry: ${{ inputs.registry_name }}
           username: ${{ inputs.registry_username }}
-          password: ${{ inputs.registry_password }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
         id: build-and-push
