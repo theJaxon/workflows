@@ -15,9 +15,7 @@ on:
       registry_username:
         required: true
         type: string
-      registry_password:
-        required: true
-        type: string
+
 jobs:
   image-build-push:
     runs-on: ubuntu-24.04
