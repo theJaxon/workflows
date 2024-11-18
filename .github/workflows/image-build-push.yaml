@@ -1,0 +1,32 @@
+on:
+  workflow_call:
+    inputs:
+      registry_name:
+        required: false
+        default: "ghcr.io"
+        type: string
+      image_name:
+        required: true
+        type: string
+      image_tag:
+        required: false
+        default: "latest"
+        type: string
+jobs:
+  image-build-push:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Log into ${{ inputs.registry_name }} registry 
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ inputs.registry_name }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: '${{ inputs.registry_name }}/thejaxon/${{ inputs.image_name }}:${{ inputs.image_tag }}'
+          platforms: linux/amd64,linux/arm64
