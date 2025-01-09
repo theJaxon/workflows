@@ -1,6 +1,9 @@
 on:
   workflow_call:
     inputs:
+      docker_context:
+        required: true
+        type: string
       registry_name:
         required: false
         default: "ghcr.io"
@@ -38,5 +41,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
+          context: ${{ inputs.docker_context }}
           tags: '${{ inputs.registry_name }}/thejaxon/${{ inputs.image_name }}:${{ inputs.image_tag }}'
           platforms: linux/amd64,linux/arm64
